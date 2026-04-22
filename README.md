@@ -5,6 +5,7 @@
 ### Date: 21 April 2026
 ### Demo Video
 [YouTube](https://youtu.be/gRzD4zib_NM)
+[Presentation Slides](https://github.com/nada0038/CST8917-FinalProject-AkashNadackanalVinod/blob/main/presentation/slides.pptx)
 ----
 
 ## 1. Version A Summary (Durable Functions)
