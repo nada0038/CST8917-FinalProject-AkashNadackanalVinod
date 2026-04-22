@@ -1,9 +1,7 @@
 # CST8917 Final Project: Dual Implementation of an Expense Approval Workflow
-
 ### Name: Akash Nadackanal Vinod
 ### Student Number: 041156265
 ### Course Code: CST8917 - Serverless Applications | Winter 2026
-### Project Title: Dual Implementation of an Expense Approval Workflow
 ### Date: 21 April 2026
 ### Demo Video
 [YouTube](https://youtu.be/gRzD4zib_NM)
