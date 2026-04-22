@@ -6,7 +6,7 @@
 ### Project Title: Dual Implementation of an Expense Approval Workflow
 ### Date: 21 April 2026
 ### Demo Video
-[Final Project](https://youtu.be/gRzD4zib_NM)
+[YouTube](https://youtu.be/gRzD4zib_NM)
 ----
 
 ## 1. Version A Summary (Durable Functions)
