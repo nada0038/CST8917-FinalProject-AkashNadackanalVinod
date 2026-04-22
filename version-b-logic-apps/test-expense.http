@@ -1,0 +1,66 @@
+### LOCAL TESTING: Test the validation function locally
+@validatorBaseUrl = http://localhost:7071/api
+
+### 1) Valid expense under $100
+POST {{validatorBaseUrl}}/validate_expense
+Content-Type: application/json
+
+{
+  "employeeName": "Alice Smith",
+  "employeeEmail": "alice@company.com",
+  "amount": 45.50,
+  "category": "meals",
+  "description": "Client lunch",
+  "managerEmail": "manager@company.com"
+}
+
+### 5) Missing required fields -> Validation Error
+POST {{validatorBaseUrl}}/validate_expense
+Content-Type: application/json
+
+{
+  "employeeName": "Eve Fox",
+  "amount": 50.00,
+  "category": "meals"
+}
+
+### 6) Invalid category -> Validation Error
+POST {{validatorBaseUrl}}/validate_expense
+Content-Type: application/json
+
+{
+  "employeeName": "Frank Castle",
+  "employeeEmail": "frank@company.com",
+  "amount": 10.00,
+  "category": "weapons",
+  "description": "Supplies",
+  "managerEmail": "manager@company.com"
+}
+
+
+# =========================================================================
+# LOGIC APP / SERVICE BUS INTEGRATION TESTING
+# =========================================================================
+# NOTE: The project requires Service Bus Queue for incoming expense requests.
+# To test the workflow end-to-end, you have two options:
+#
+# OPTION A: Use the Azure Portal "Service Bus Explorer" to send messages manually.
+# Copy and paste the JSON payloads below.
+#
+# OPTION B: If you set up an HTTP trigger that outputs to the Service Bus Queue
+# (for convenience), or an HTTP Triggered Logic App, provide your Production Logic App URL below:
+
+@logicAppUrl = https://prod-xxx.xxx.logic.azure.com:443/workflows/...
+
+### Submit to Logic App (or Service Bus HTTP REST)
+POST {{logicAppUrl}}
+Content-Type: application/json
+
+{
+  "employeeName": "Bob Jones",
+  "employeeEmail": "bob@company.com",
+  "amount": 299.99,
+  "category": "travel",
+  "description": "Flight to Toronto",
+  "managerEmail": "manager@company.com"
+}

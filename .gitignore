@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.azurite/
+*.pyc
+.vscode/
+local.settings.json
+node_modules/

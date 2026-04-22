@@ -1,0 +1,104 @@
+### Variables (Adjust as needed)
+@baseUrl = http://localhost:7071/api
+
+### 1) Valid expense under $100 -> Auto-approved
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Alice Smith",
+  "employeeEmail": "alice@company.com",
+  "amount": 45.50,
+  "category": "meals",
+  "description": "Client lunch",
+  "managerEmail": "manager@company.com"
+}
+
+### 2) Valid expense >= $100, manager approves -> Approved
+# Step A: Submit
+# @name submitForApproval
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Bob Jones",
+  "employeeEmail": "bob@company.com",
+  "amount": 299.99,
+  "category": "travel",
+  "description": "Flight to Toronto",
+  "managerEmail": "manager@company.com"
+}
+
+### Step B: Check status (extract instanceId from the location header or response body and replace {instanceId})
+GET {{baseUrl}}/submitExpense
+
+### Step C: Manager approves
+# Replace {instanceId} with actual ID from above
+POST {{baseUrl}}/managerDecision/{instanceId}
+Content-Type: application/json
+
+{
+  "decision": "approve"
+}
+
+
+### 3) Valid expense >= $100, manager rejects -> Rejected
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Charlie Day",
+  "employeeEmail": "charlie@company.com",
+  "amount": 1500.00,
+  "category": "equipment",
+  "description": "New supercomputer",
+  "managerEmail": "manager@company.com"
+}
+
+### Manager Rejects
+POST {{baseUrl}}/managerDecision/{instanceId}
+Content-Type: application/json
+
+{
+    "decision": "reject"
+}
+
+
+### 4) Valid expense >= $100, no manager response -> Escalated
+# Run this and then wait for 2 minutes for the Durable Timer to trigger
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Dave Williams",
+  "employeeEmail": "dave@company.com",
+  "amount": 400.00,
+  "category": "software",
+  "description": "Annual software license",
+  "managerEmail": "manager@company.com"
+}
+
+
+### 5) Missing required fields -> Validation Error
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Eve Fox",
+  "amount": 50.00,
+  "category": "meals"
+}
+
+
+### 6) Invalid category -> Validation Error
+POST {{baseUrl}}/submitExpense
+Content-Type: application/json
+
+{
+  "employeeName": "Frank Castle",
+  "employeeEmail": "frank@company.com",
+  "amount": 10.00,
+  "category": "weapons",
+  "description": "Supplies",
+  "managerEmail": "manager@company.com"
+}
